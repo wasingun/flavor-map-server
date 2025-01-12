@@ -14,4 +14,4 @@ ENV CONFIG_FILE=application.conf
 ENTRYPOINT ["java", "-Dktor.config=/app/$CONFIG_FILE", "-jar", "/app/flavor-map.jar"]
 
 # 컨테이너에서 사용하는 포트를 열어줌
-EXPOSE 8080
+EXPOSE 59908

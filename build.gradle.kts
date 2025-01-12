@@ -4,6 +4,7 @@ val logbackVersion: String by project
 val exposedVersion: String by project
 val hikaricpVersion: String by project
 val postgresqlVersion: String by project
+val h2Version: String by project
 
 plugins {
     kotlin("jvm") version "1.9.23"
@@ -31,6 +32,26 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     }
 }
 
+tasks.register<JavaExec>("runLocal") {
+    group = "application"
+    description = "로컬 설정으로 애플리케이션 실행"
+
+    mainClass.set("com.example.ApplicationKt")
+    classpath = sourceSets["main"].runtimeClasspath
+
+    systemProperty("config.file", "src/main/resources/application-local.conf")
+}
+
+tasks.register<JavaExec>("runProd") {
+    group = "application"
+    description = "프로덕션 설정으로 애플리케이션 실행"
+
+    mainClass.set("com.example.ApplicationKt")
+    classpath = sourceSets["main"].runtimeClasspath
+
+    systemProperty("config.file", "src/main/resources/application.conf")
+}
+
 dependencies {
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.server.core)
@@ -50,6 +71,9 @@ dependencies {
 
     //Postgres
     implementation("org.postgresql:postgresql:$postgresqlVersion")
+
+    //H2
+    implementation("com.h2database:h2:$h2Version")
 
     //Koin
     implementation("io.insert-koin:koin-ktor:3.5.0")
