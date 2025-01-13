@@ -1,9 +1,12 @@
 package com.example.config
 
+import com.example.domain.UserTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Application.configureDatabase() {
     val config = environment.config
@@ -17,4 +20,10 @@ fun Application.configureDatabase() {
 
     val dataSource = HikariDataSource(hikariConfig)
     Database.connect(dataSource)
+
+    transaction {
+        SchemaUtils.create(
+            UserTable
+        )
+    }
 }
