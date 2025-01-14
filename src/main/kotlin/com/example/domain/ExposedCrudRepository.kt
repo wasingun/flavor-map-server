@@ -1,7 +1,7 @@
 package com.example.domain
 
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.dao.id.LongIdTable
+import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.StdOutSqlLogger
@@ -13,9 +13,10 @@ import org.jetbrains.exposed.sql.statements.InsertStatement
 import org.jetbrains.exposed.sql.statements.UpdateStatement
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
+import java.util.*
 
 
-interface ExposedCrudRepository<TABLE : LongIdTable, DOMAIN : BaseModel> : CrudRepository<DOMAIN> {
+interface ExposedCrudRepository<TABLE : UUIDTable, DOMAIN : BaseModel> : CrudRepository<DOMAIN> {
     val table: TABLE
     override fun create(domain: DOMAIN): DOMAIN = dbQuery {
         val id = table.insertAndGetId(toRow(domain))
@@ -27,7 +28,7 @@ interface ExposedCrudRepository<TABLE : LongIdTable, DOMAIN : BaseModel> : CrudR
         table.selectAll().map { toDomain(it) }
     }
 
-    override fun read(id: Long): DOMAIN? = dbQuery {
+    override fun read(id: UUID): DOMAIN? = dbQuery {
         table.selectAll().where { table.id eq id }
             .map { toDomain(it) }
             .singleOrNull()
@@ -46,12 +47,12 @@ interface ExposedCrudRepository<TABLE : LongIdTable, DOMAIN : BaseModel> : CrudR
         return@dbQuery
     }
 
-    override fun delete(id: Long) = dbQuery {
+    override fun delete(id: UUID) = dbQuery {
         table.deleteWhere { table.id eq id }
         return@dbQuery
     }
 
-    fun toRow(domain: DOMAIN): TABLE.(InsertStatement<EntityID<Long>>) -> Unit
+    fun toRow(domain: DOMAIN): TABLE.(InsertStatement<EntityID<UUID>>) -> Unit
     fun toDomain(row: ResultRow): DOMAIN
     fun updateRow(domain: DOMAIN): TABLE.(UpdateStatement) -> Unit
 

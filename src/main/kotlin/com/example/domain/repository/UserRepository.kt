@@ -8,11 +8,12 @@ import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.statements.InsertStatement
 import org.jetbrains.exposed.sql.statements.UpdateStatement
+import java.util.*
 
 class UserRepository(
     override val table: UserTable
 ) : ExposedCrudRepository<UserTable, User> {
-    override fun toRow(domain: User): UserTable.(InsertStatement<EntityID<Long>>) -> Unit {
+    override fun toRow(domain: User): UserTable.(InsertStatement<EntityID<UUID>>) -> Unit {
         return {
             if (domain.primaryId != null) {
                 it[id] = domain.primaryId!!
