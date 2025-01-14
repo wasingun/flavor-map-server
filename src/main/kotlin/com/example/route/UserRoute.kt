@@ -34,5 +34,16 @@ fun Application.userRoute() {
             val user = userService.getUserByUserId(id)
             call.respond(user)
         }
+
+        put("/user") {
+            val req = call.receive<UserDto.UpdateUserRequest>()
+            userService.updateUser(req)
+            call.respond(
+                BaseDto.BaseResponse(
+                    success = true,
+                    message = "User updated"
+                )
+            )
+        }
     }
 }

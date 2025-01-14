@@ -28,6 +28,21 @@ class UserService(
             nickname = result.nickname,
             email = result.email,
             profileImage = result.profileImage,
+            createdAt = result.createdAt,
+            primaryId = result.primaryId!!
+        )
+    }
+
+    fun updateUser(user: UserDto.UpdateUserRequest) {
+        repository.update(
+            User(
+                userId = user.userId,
+                nickname = user.nickname,
+                email = user.email,
+                profileImage = user.profileImage,
+                createdAt = LocalDateTime.now(),
+                primaryId = user.primaryId
+            )
         )
     }
 }
