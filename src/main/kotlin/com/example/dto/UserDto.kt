@@ -36,4 +36,9 @@ class UserDto {
         val createdAt: LocalDateTime,
         @Contextual val primaryId: UUID,
     )
+
+    @Serializable
+    data class DeleteUserRequest(
+        @Contextual val primaryId: UUID,
+    )
 }

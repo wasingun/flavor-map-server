@@ -4,6 +4,7 @@ import com.example.domain.model.User
 import com.example.domain.repository.UserRepository
 import com.example.dto.UserDto
 import java.time.LocalDateTime
+import java.util.*
 
 class UserService(
     private val repository: UserRepository
@@ -44,5 +45,10 @@ class UserService(
                 primaryId = user.primaryId
             )
         )
+    }
+
+    fun deleteUser(primaryKey: String) {
+        val primaryKeyUuid = UUID.fromString(primaryKey)
+        repository.delete(primaryKeyUuid)
     }
 }

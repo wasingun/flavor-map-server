@@ -45,5 +45,21 @@ fun Application.userRoute() {
                 )
             )
         }
+
+        delete("/user/{primaryKey}") {
+            val req = call.parameters["primaryKey"] ?: return@delete call.respond(
+                BaseDto.BaseResponse(
+                    success = false,
+                    message = "Invalid id"
+                )
+            )
+            userService.deleteUser(req)
+            call.respond(
+                BaseDto.BaseResponse(
+                    success = true,
+                    message = "User deleted"
+                )
+            )
+        }
     }
 }
