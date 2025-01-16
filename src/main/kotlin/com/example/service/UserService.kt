@@ -1,5 +1,7 @@
 package com.example.service
 
+import com.example.ErrorCode
+import com.example.GlobalException
 import com.example.domain.model.User
 import com.example.domain.repository.UserRepository
 import com.example.dto.UserDto
@@ -10,6 +12,13 @@ class UserService(
     private val repository: UserRepository
 ) {
     fun createUser(user: UserDto.CreateUserRequest) {
+        val existedUser = repository.findByUserId(user.userId)
+        if (existedUser != null) {
+            throw GlobalException(
+                errorCode = ErrorCode.USER_ALREADY_EXISTS,
+                errorMessage = ErrorCode.USER_ALREADY_EXISTS.defaultMessage
+            )
+        }
         repository.create(
             User(
                 userId = user.userId,
@@ -22,19 +31,29 @@ class UserService(
     }
 
     fun getUserByUserId(userId: String): UserDto.GetUserResponse {
-        //TODO: 에러처리 별도 구현 예정
-        val result = repository.findByUserId(userId)!!
+        val existedUser = repository.findByUserId(userId)
+            ?: throw GlobalException(
+                errorCode = ErrorCode.USER_NOT_FOUND,
+                errorMessage = ErrorCode.USER_NOT_FOUND.defaultMessage
+            )
         return UserDto.GetUserResponse(
-            userId = result.userId,
-            nickname = result.nickname,
-            email = result.email,
-            profileImage = result.profileImage,
-            createdAt = result.createdAt,
-            primaryId = result.primaryId!!
+            userId = existedUser.userId,
+            nickname = existedUser.nickname,
+            email = existedUser.email,
+            profileImage = existedUser.profileImage,
+            createdAt = existedUser.createdAt,
+            primaryId = existedUser.primaryId!!
         )
     }
 
     fun updateUser(user: UserDto.UpdateUserRequest) {
+        val existedUser = repository.findByUserId(user.userId)
+        if (existedUser == null) {
+            throw GlobalException(
+                errorCode = ErrorCode.USER_NOT_FOUND,
+                errorMessage = ErrorCode.USER_NOT_FOUND.defaultMessage
+            )
+        }
         repository.update(
             User(
                 userId = user.userId,
@@ -49,6 +68,13 @@ class UserService(
 
     fun deleteUser(primaryKey: String) {
         val primaryKeyUuid = UUID.fromString(primaryKey)
+        val existedPrimaryKey = repository.read(primaryKeyUuid)
+        if (existedPrimaryKey == null) {
+            throw GlobalException(
+                errorCode = ErrorCode.USER_NOT_FOUND,
+                errorMessage = ErrorCode.USER_NOT_FOUND.defaultMessage
+            )
+        }
         repository.delete(primaryKeyUuid)
     }
 }
