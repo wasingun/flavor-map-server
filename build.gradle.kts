@@ -7,9 +7,9 @@ val postgresqlVersion: String by project
 val h2Version: String by project
 
 plugins {
-    kotlin("jvm") version "1.9.23"
+    kotlin("jvm") version "2.0.0"
     id("io.ktor.plugin") version "2.3.9"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
 }
 
 group = "com.example"
@@ -78,4 +78,7 @@ dependencies {
     //Koin
     implementation("io.insert-koin:koin-ktor:3.5.0")
     implementation("io.insert-koin:koin-logger-slf4j:3.5.0")
+
+    //Status Pages
+    implementation("io.ktor:ktor-server-status-pages-jvm")
 }
