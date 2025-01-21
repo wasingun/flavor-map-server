@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 class BaseDto {
     @Serializable
     data class BaseResponse(
-        val success: Boolean,
+        val isSuccess: Boolean,
         val message: String
     )
 }

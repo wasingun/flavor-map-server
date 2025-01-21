@@ -18,7 +18,7 @@ fun Application.userRoute() {
             userService.createUser(req)
             call.respond(
                 BaseDto.BaseResponse(
-                    success = true,
+                    isSuccess = true,
                     message = "User created"
                 )
             )
@@ -27,7 +27,7 @@ fun Application.userRoute() {
         get("/user/{userId}") {
             val id = call.parameters["userId"] ?: return@get call.respond(
                 BaseDto.BaseResponse(
-                    success = false,
+                    isSuccess = false,
                     message = "Invalid id"
                 )
             )
@@ -40,7 +40,7 @@ fun Application.userRoute() {
             userService.updateUser(req)
             call.respond(
                 BaseDto.BaseResponse(
-                    success = true,
+                    isSuccess = true,
                     message = "User updated"
                 )
             )
@@ -49,14 +49,14 @@ fun Application.userRoute() {
         delete("/user/{primaryKey}") {
             val req = call.parameters["primaryKey"] ?: return@delete call.respond(
                 BaseDto.BaseResponse(
-                    success = false,
+                    isSuccess = false,
                     message = "Invalid id"
                 )
             )
             userService.deleteUser(req)
             call.respond(
                 BaseDto.BaseResponse(
-                    success = true,
+                    isSuccess = true,
                     message = "User deleted"
                 )
             )
