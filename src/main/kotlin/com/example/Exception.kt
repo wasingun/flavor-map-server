@@ -30,5 +30,6 @@ enum class ErrorCode(val httpStatusCode: HttpStatusCode, val defaultMessage: Str
     USER_NOT_FOUND(HttpStatusCode.Unauthorized, "User not found."),
     USER_ALREADY_EXISTS(HttpStatusCode.BadRequest, "User already exists."),
     FORBIDDEN(HttpStatusCode.Forbidden, "Access denied."),
-    BAD_REQUEST(HttpStatusCode.BadRequest, "Bad request.")
+    BAD_REQUEST(HttpStatusCode.BadRequest, "Bad request."),
+    DATA_INTEGRITY_VIOLATION(HttpStatusCode.BadRequest, "Data integrity violation: Primary ID mismatch")
 }

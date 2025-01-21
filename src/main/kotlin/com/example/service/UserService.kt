@@ -9,17 +9,17 @@ import java.time.LocalDateTime
 import java.util.*
 
 class UserService(
-    private val repository: UserRepository
+    private val userRepository: UserRepository
 ) {
     fun createUser(user: UserDto.CreateUserRequest) {
-        val existedUser = repository.findByUserId(user.userId)
+        val existedUser = userRepository.findByUserId(user.userId)
         if (existedUser != null) {
             throw GlobalException(
                 errorCode = ErrorCode.USER_ALREADY_EXISTS,
                 errorMessage = ErrorCode.USER_ALREADY_EXISTS.defaultMessage
             )
         }
-        repository.create(
+        userRepository.create(
             User(
                 userId = user.userId,
                 nickname = user.nickname,
@@ -31,7 +31,7 @@ class UserService(
     }
 
     fun getUserByUserId(userId: String): UserDto.GetUserResponse {
-        val existedUser = repository.findByUserId(userId)
+        val existedUser = userRepository.findByUserId(userId)
             ?: throw GlobalException(
                 errorCode = ErrorCode.USER_NOT_FOUND,
                 errorMessage = ErrorCode.USER_NOT_FOUND.defaultMessage
@@ -47,14 +47,19 @@ class UserService(
     }
 
     fun updateUser(user: UserDto.UpdateUserRequest) {
-        val existedUser = repository.findByUserId(user.userId)
+        val existedUser = userRepository.findByUserId(user.userId)
         if (existedUser == null) {
             throw GlobalException(
                 errorCode = ErrorCode.USER_NOT_FOUND,
                 errorMessage = ErrorCode.USER_NOT_FOUND.defaultMessage
             )
+        } else if (existedUser.primaryId != user.primaryId) {
+            throw GlobalException(
+                errorCode = ErrorCode.DATA_INTEGRITY_VIOLATION,
+                errorMessage = ErrorCode.DATA_INTEGRITY_VIOLATION.defaultMessage
+            )
         }
-        repository.update(
+        userRepository.update(
             User(
                 userId = user.userId,
                 nickname = user.nickname,
@@ -68,13 +73,13 @@ class UserService(
 
     fun deleteUser(primaryKey: String) {
         val primaryKeyUuid = UUID.fromString(primaryKey)
-        val existedPrimaryKey = repository.read(primaryKeyUuid)
+        val existedPrimaryKey = userRepository.read(primaryKeyUuid)
         if (existedPrimaryKey == null) {
             throw GlobalException(
                 errorCode = ErrorCode.USER_NOT_FOUND,
                 errorMessage = ErrorCode.USER_NOT_FOUND.defaultMessage
             )
         }
-        repository.delete(primaryKeyUuid)
+        userRepository.delete(primaryKeyUuid)
     }
 }
