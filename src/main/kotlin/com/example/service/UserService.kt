@@ -37,12 +37,16 @@ class UserService(
                 errorMessage = ErrorCode.USER_NOT_FOUND.defaultMessage
             )
         return UserDto.GetUserResponse(
-            userId = existedUser.userId,
-            nickname = existedUser.nickname,
-            email = existedUser.email,
-            profileImage = existedUser.profileImage,
-            createdAt = existedUser.createdAt,
-            primaryId = existedUser.primaryId!!
+            isSuccess = true,
+            message = "Request Success",
+            data = User(
+                userId = existedUser.userId,
+                nickname = existedUser.nickname,
+                email = existedUser.email,
+                profileImage = existedUser.profileImage,
+                createdAt = existedUser.createdAt,
+                primaryId = existedUser.primaryId!!
+            )
         )
     }
 

@@ -38,13 +38,18 @@ class VendorService(private val vendorRepository: VendorRepository) {
         )
 
         return VendorDto.GetVendorResponse(
-            vendorId = existVendor.vendorId,
-            vendorName = existVendor.vendorName,
-            photoUrl = existVendor.photoUrl,
-            operatingHours = existVendor.operatingHours,
-            contactNumber = existVendor.contactNumber,
-            createdAt = existVendor.createdAt,
-            primaryId = existVendor.primaryId!!
+            isSuccess = true,
+            message = "Request Success",
+            data = Vendor(
+                vendorId = existVendor.vendorId,
+                email = existVendor.email,
+                vendorName = existVendor.vendorName,
+                photoUrl = existVendor.photoUrl,
+                operatingHours = existVendor.operatingHours,
+                contactNumber = existVendor.contactNumber,
+                createdAt = existVendor.createdAt,
+                primaryId = existVendor.primaryId!!
+            )
         )
     }
 
@@ -88,18 +93,19 @@ class VendorService(private val vendorRepository: VendorRepository) {
         vendorRepository.delete(primaryKeyUuid)
     }
 
-    fun getAllVendors(): List<VendorDto.GetVendorResponse> {
-        val vendorList = vendorRepository.findAll().map { it ->
-            VendorDto.GetVendorResponse(
-                vendorId = it.vendorId,
-                vendorName = it.vendorName,
-                photoUrl = it.photoUrl,
-                operatingHours = it.operatingHours,
-                contactNumber = it.contactNumber,
-                createdAt = it.createdAt,
-                primaryId = it.primaryId!!
+    fun getAllVendors(): VendorDto.GetAllVendorResponse {
+        val vendorList = vendorRepository.findAll()
+        if (vendorList.isEmpty()) {
+            throw GlobalException(
+                errorCode = ErrorCode.USER_NOT_FOUND,
+                errorMessage = ErrorCode.USER_NOT_FOUND.defaultMessage
             )
         }
-        return vendorList
+
+        return VendorDto.GetAllVendorResponse(
+            isSuccess = true,
+            message = "Request Success",
+            data = vendorList
+        )
     }
 }
