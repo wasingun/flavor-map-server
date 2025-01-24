@@ -20,3 +20,10 @@ object VendorTable : UUIDTable("vendor") {
     val contactNumber = varchar("contact_number", 20) // 연락처
     val createAt = datetime("created_at") // 업체 생성일
 }
+
+object VendorLocationTable : UUIDTable("vendor_location") {
+    val vendorId = varchar("vendor_id", 300).uniqueIndex() // 업체 ID
+    val currentLatitude = double("current_latitude") // 현재 위도
+    val currentLongitude = double("current_longitude") // 현재 경도
+    val createdAt = datetime("created_at") // 생성일
+}

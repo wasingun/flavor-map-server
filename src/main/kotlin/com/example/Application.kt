@@ -4,6 +4,7 @@ import com.example.config.configureDatabase
 import com.example.config.configureDependencyInjection
 import com.example.config.configureErrorHandling
 import com.example.route.userRoute
+import com.example.route.vendorLocationRoute
 import com.example.route.vendorRoute
 import io.ktor.server.application.*
 
@@ -18,4 +19,5 @@ fun Application.module() {
     configureErrorHandling()
     userRoute()
     vendorRoute()
+    vendorLocationRoute()
 }
