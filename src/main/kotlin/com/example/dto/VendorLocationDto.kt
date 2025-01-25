@@ -29,6 +29,6 @@ class VendorLocationDto {
         val currentLongitude: Double,
         @Serializable(with = LocalDateTimeSerializer::class)
         val createdAt: LocalDateTime,
-        @Contextual val primaryId: UUID,
+        val primaryId: String,
     )
 }

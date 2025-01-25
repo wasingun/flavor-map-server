@@ -20,7 +20,7 @@ interface ExposedCrudRepository<TABLE : UUIDTable, DOMAIN : BaseModel> : CrudRep
     val table: TABLE
     override fun create(domain: DOMAIN): DOMAIN = dbQuery {
         val id = table.insertAndGetId(toRow(domain))
-        domain.primaryId = id.value
+        domain.primaryId = id.value.toString()
         domain
     }
 
@@ -36,14 +36,14 @@ interface ExposedCrudRepository<TABLE : UUIDTable, DOMAIN : BaseModel> : CrudRep
 
     override fun update(domain: DOMAIN): DOMAIN = dbQuery {
         table.update(
-            where = { table.id eq domain.primaryId },
+            where = { table.id eq UUID.fromString(domain.primaryId) },
             body = updateRow(domain)
         )
         domain
     }
 
     override fun delete(domain: DOMAIN) = dbQuery {
-        table.deleteWhere { table.id eq domain.primaryId }
+        table.deleteWhere { table.id eq UUID.fromString(domain.primaryId) }
         return@dbQuery
     }
 

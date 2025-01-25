@@ -31,6 +31,6 @@ class UserDto {
         val profileImage: String = "",
         @Serializable(with = LocalDateTimeSerializer::class)
         val createdAt: LocalDateTime,
-        @Contextual val primaryId: UUID,
+        val primaryId: String,
     )
 }

@@ -16,7 +16,7 @@ class VendorLocationRepository(
     override fun toRow(domain: VendorLocation): VendorLocationTable.(InsertStatement<EntityID<UUID>>) -> Unit {
         return {
             if (domain.primaryId != null) {
-                it[id] = domain.primaryId!!
+                it[id] = UUID.fromString(domain.primaryId!!)
             }
             it[vendorId] = domain.vendorId
             it[currentLatitude] = domain.currentLatitude
@@ -31,7 +31,7 @@ class VendorLocationRepository(
             currentLatitude = row[VendorLocationTable.currentLatitude],
             currentLongitude = row[VendorLocationTable.currentLongitude],
             createdAt = row[VendorLocationTable.createdAt],
-            primaryId = row[VendorLocationTable.id].value
+            primaryId = row[VendorLocationTable.id].value.toString()
         )
     }
 

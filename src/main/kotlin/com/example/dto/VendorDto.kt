@@ -41,6 +41,6 @@ class VendorDto {
         val contactNumber: String,
         @Serializable(with = LocalDateTimeSerializer::class)
         val createdAt: LocalDateTime,
-        @Contextual val primaryId: UUID,
+        val primaryId: String,
     )
 }

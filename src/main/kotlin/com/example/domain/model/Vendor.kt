@@ -17,5 +17,5 @@ data class Vendor(
     val contactNumber: String,
     @Serializable(with = LocalDateTimeSerializer::class)
     val createdAt: LocalDateTime,
-    @Contextual override var primaryId: UUID? = null,
+    @Contextual override var primaryId: String? = null,
 ) : BaseModel

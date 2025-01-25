@@ -16,7 +16,7 @@ class UserRepository(
     override fun toRow(domain: User): UserTable.(InsertStatement<EntityID<UUID>>) -> Unit {
         return {
             if (domain.primaryId != null) {
-                it[id] = domain.primaryId!!
+                it[id] = UUID.fromString(domain.primaryId!!)
             }
             it[userId] = domain.userId
             it[nickname] = domain.nickname
@@ -33,7 +33,7 @@ class UserRepository(
             email = row[UserTable.email],
             profileImage = row[UserTable.profileImage],
             createdAt = row[UserTable.createdAt],
-            primaryId = row[UserTable.id].value
+            primaryId = row[UserTable.id].value.toString()
         )
     }
 

@@ -16,7 +16,7 @@ class VendorRepository(
     override fun toRow(domain: Vendor): VendorTable.(InsertStatement<EntityID<UUID>>) -> Unit {
         return {
             if (domain.primaryId != null) {
-                it[id] = domain.primaryId!!
+                it[id] = UUID.fromString(domain.primaryId!!)
             }
             it[vendorId] = domain.vendorId
             it[email] = domain.email
@@ -37,7 +37,7 @@ class VendorRepository(
             operatingHours = row[VendorTable.operatingHours],
             contactNumber = row[VendorTable.contactNumber],
             createdAt = row[VendorTable.createAt],
-            primaryId = row[VendorTable.id].value
+            primaryId = row[VendorTable.id].value.toString()
         )
     }
 

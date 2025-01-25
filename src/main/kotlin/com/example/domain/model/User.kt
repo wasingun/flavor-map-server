@@ -15,5 +15,5 @@ data class User (
     val profileImage: String,
     @Serializable(with = LocalDateTimeSerializer::class)
     val createdAt: LocalDateTime,
-    @Contextual override var primaryId: UUID? = null,
+    override var primaryId: String? = null,
 ) : BaseModel
