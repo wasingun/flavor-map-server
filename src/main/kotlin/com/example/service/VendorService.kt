@@ -40,7 +40,7 @@ class VendorService(private val vendorRepository: VendorRepository) {
         return VendorDto.GetVendorResponse(
             isSuccess = true,
             message = "Request Success",
-            data = Vendor(
+            vendor = Vendor(
                 vendorId = existVendor.vendorId,
                 email = existVendor.email,
                 vendorName = existVendor.vendorName,
@@ -105,7 +105,7 @@ class VendorService(private val vendorRepository: VendorRepository) {
         return VendorDto.GetAllVendorResponse(
             isSuccess = true,
             message = "Request Success",
-            data = vendorList
+            vendorList = vendorList
         )
     }
 }

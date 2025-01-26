@@ -39,7 +39,7 @@ class UserService(
         return UserDto.GetUserResponse(
             isSuccess = true,
             message = "Request Success",
-            data = User(
+            user = User(
                 userId = existedUser.userId,
                 nickname = existedUser.nickname,
                 email = existedUser.email,

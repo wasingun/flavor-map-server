@@ -34,7 +34,7 @@ class VendorLocationService(
         return VendorLocationDto.GetAllVendorLocationResponse(
             isSuccess = true,
             message = "Request Success",
-            data = existedVendorLocation
+            vendorLocationList = existedVendorLocation
         )
     }
 

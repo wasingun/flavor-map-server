@@ -2,10 +2,8 @@ package com.example.dto
 
 import com.example.LocalDateTimeSerializer
 import com.example.domain.model.User
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
-import java.util.*
 
 class UserDto {
     @Serializable
@@ -20,7 +18,7 @@ class UserDto {
     data class GetUserResponse(
         val isSuccess: Boolean,
         val message: String,
-        val data: User
+        val user: User
     )
 
     @Serializable

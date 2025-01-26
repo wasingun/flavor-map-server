@@ -2,10 +2,8 @@ package com.example.dto
 
 import com.example.LocalDateTimeSerializer
 import com.example.domain.model.Vendor
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
-import java.util.*
 
 class VendorDto {
     @Serializable
@@ -22,14 +20,14 @@ class VendorDto {
     data class GetVendorResponse (
         val isSuccess: Boolean,
         val message: String,
-        val data: Vendor
+        val vendor: Vendor
     )
 
     @Serializable
     data class GetAllVendorResponse (
         val isSuccess: Boolean,
         val message: String,
-        val data: List<Vendor>
+        val vendorList: List<Vendor>
     )
 
     @Serializable
