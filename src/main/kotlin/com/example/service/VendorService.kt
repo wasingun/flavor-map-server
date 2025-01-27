@@ -8,7 +8,9 @@ import com.example.dto.VendorDto
 import java.time.LocalDateTime
 import java.util.*
 
-class VendorService(private val vendorRepository: VendorRepository) {
+class VendorService(
+    private val vendorRepository: VendorRepository
+) {
     fun createVendor(createVendorRequest: VendorDto.CreateVendorRequest) {
         val existVendor = vendorRepository.findByVendorId(createVendorRequest.vendorId)
         if (existVendor != null) {

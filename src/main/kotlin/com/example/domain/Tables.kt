@@ -27,3 +27,12 @@ object VendorLocationTable : UUIDTable("vendor_location") {
     val currentLongitude = double("current_longitude") // 현재 경도
     val createdAt = datetime("created_at") // 생성일
 }
+
+object ReviewTable : UUIDTable("review") {
+    val writerId = varchar("writer_id", 300)
+    val vendorId = varchar("vendor_id", 300)
+    val rating = integer("rating")
+    val title = varchar("title", 100)
+    val content = text("content")
+    val createdAt = datetime("created_at")
+}

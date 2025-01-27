@@ -1,11 +1,14 @@
 package com.example.config
 
+import com.example.domain.ReviewTable
 import com.example.domain.UserTable
 import com.example.domain.VendorLocationTable
 import com.example.domain.VendorTable
+import com.example.domain.repository.ReviewRepository
 import com.example.domain.repository.UserRepository
 import com.example.domain.repository.VendorLocationRepository
 import com.example.domain.repository.VendorRepository
+import com.example.service.ReviewService
 import com.example.service.UserService
 import com.example.service.VendorLocationService
 import com.example.service.VendorService
@@ -21,6 +24,8 @@ val appModule = module {
     single { VendorService(get()) }
     single { VendorLocationRepository(VendorLocationTable) }
     single { VendorLocationService(get()) }
+    single { ReviewRepository(ReviewTable) }
+    single { ReviewService(get()) }
 }
 
 fun Application.configureDependencyInjection() {

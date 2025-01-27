@@ -1,5 +1,6 @@
 package com.example.config
 
+import com.example.domain.ReviewTable
 import com.example.domain.UserTable
 import com.example.domain.VendorLocationTable
 import com.example.domain.VendorTable
@@ -27,7 +28,8 @@ fun Application.configureDatabase() {
         SchemaUtils.create(
             UserTable,
             VendorTable,
-            VendorLocationTable
+            VendorLocationTable,
+            ReviewTable,
         )
     }
 }

@@ -27,9 +27,10 @@ class GlobalException(
 }
 
 enum class ErrorCode(val httpStatusCode: HttpStatusCode, val defaultMessage: String) {
-    USER_NOT_FOUND(HttpStatusCode.Unauthorized, "User not found."),
+    USER_NOT_FOUND(HttpStatusCode.NotFound, "User not found."),
     USER_ALREADY_EXISTS(HttpStatusCode.BadRequest, "User already exists."),
     FORBIDDEN(HttpStatusCode.Forbidden, "Access denied."),
     BAD_REQUEST(HttpStatusCode.BadRequest, "Bad request."),
-    DATA_INTEGRITY_VIOLATION(HttpStatusCode.BadRequest, "Data integrity violation")
+    DATA_INTEGRITY_VIOLATION(HttpStatusCode.BadRequest, "Data integrity violation"),
+    REVIEW_NOT_FOUND(HttpStatusCode.NotFound, "Review not found."),
 }

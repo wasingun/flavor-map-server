@@ -3,6 +3,7 @@ package com.example
 import com.example.config.configureDatabase
 import com.example.config.configureDependencyInjection
 import com.example.config.configureErrorHandling
+import com.example.route.reviewRoute
 import com.example.route.userRoute
 import com.example.route.vendorLocationRoute
 import com.example.route.vendorRoute
@@ -20,4 +21,5 @@ fun Application.module() {
     userRoute()
     vendorRoute()
     vendorLocationRoute()
+    reviewRoute()
 }
