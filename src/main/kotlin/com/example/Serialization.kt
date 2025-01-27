@@ -10,15 +10,16 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
 
 fun Application.configureSerialization() {
-    val uuidSerializersModule = SerializersModule {
+/*    val uuidSerializersModule = SerializersModule {
         contextual(UUIDSerializer) // UUIDSerializer 등록
-    }
+    }*/
     install(ContentNegotiation) {
-        json(
+/*        json(
             Json {
                 serializersModule = uuidSerializersModule
             }
-        )
+        )*/
+        json()
     }
     routing {
         get("/json/kotlinx-serialization") {

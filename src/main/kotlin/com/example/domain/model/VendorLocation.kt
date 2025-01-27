@@ -8,12 +8,11 @@ import java.time.LocalDateTime
 import java.util.*
 
 @Serializable
-data class User (
-    val userId: String,
-    val nickname: String,
-    val email: String,
-    val profileImage: String,
+class VendorLocation(
+    val vendorId: String,
+    val currentLatitude: Double,
+    val currentLongitude: Double,
     @Serializable(with = LocalDateTimeSerializer::class)
     val createdAt: LocalDateTime,
-    override var primaryId: String? = null,
-) : BaseModel
+    @Contextual override var primaryId: String? = null,
+): BaseModel

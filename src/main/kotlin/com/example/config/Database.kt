@@ -1,6 +1,8 @@
 package com.example.config
 
 import com.example.domain.UserTable
+import com.example.domain.VendorLocationTable
+import com.example.domain.VendorTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.*
@@ -23,7 +25,9 @@ fun Application.configureDatabase() {
 
     transaction {
         SchemaUtils.create(
-            UserTable
+            UserTable,
+            VendorTable,
+            VendorLocationTable
         )
     }
 }

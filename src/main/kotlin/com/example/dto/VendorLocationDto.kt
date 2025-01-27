@@ -1,34 +1,32 @@
 package com.example.dto
 
 import com.example.LocalDateTimeSerializer
-import com.example.domain.model.User
+import com.example.domain.model.VendorLocation
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 import java.util.*
 
-class UserDto {
+class VendorLocationDto {
     @Serializable
-    data class CreateUserRequest(
-        val userId: String,
-        val nickname: String,
-        val email: String,
-        val profileImage: String = "",
+    data class CreateVendorLocationRequest(
+        val vendorId: String,
+        val currentLatitude: Double,
+        val currentLongitude: Double,
     )
 
     @Serializable
-    data class GetUserResponse(
+    data class GetAllVendorLocationResponse(
         val isSuccess: Boolean,
         val message: String,
-        val data: User
+        val data: List<VendorLocation>
     )
 
     @Serializable
-    data class UpdateUserRequest(
-        val userId: String,
-        val nickname: String,
-        val email: String,
-        val profileImage: String = "",
+    data class UpdateVendorLocationRequest(
+        val vendorId: String,
+        val currentLatitude: Double,
+        val currentLongitude: Double,
         @Serializable(with = LocalDateTimeSerializer::class)
         val createdAt: LocalDateTime,
         val primaryId: String,
